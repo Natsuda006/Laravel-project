@@ -1,31 +1,43 @@
 <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
-    </div>
-
-    @if (session('status') == 'verification-link-sent')
-        <div class="mb-4 font-medium text-sm text-green-600">
-            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
-        </div>
-    @endif
-
-    <div class="mt-4 flex items-center justify-between">
-        <form method="POST" action="{{ route('verification.send') }}">
-            @csrf
-
-            <div>
-                <x-primary-button>
-                    {{ __('Resend Verification Email') }}
-                </x-primary-button>
+    <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-lg bg-white rounded-2xl shadow-xl p-10">
+            <div class="text-center">
+                <div class="mx-auto h-24 w-24 rounded-2xl bg-white shadow-lg flex items-center justify-center p-3">
+                    <img src="{{ asset('images/โก้.png') }}" alt="Collecta Logo" class="h-20 w-20 object-contain">
+                </div>
+                <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                    ยืนยันอีเมลของคุณ
+                </h2>
+                <p class="mt-4 text-center text-sm text-gray-600">
+                    ขอบคุณที่ลงทะเบียน! ก่อนเริ่มต้น คุณสามารถยืนยันที่อยู่อีเมลของคุณได้โดยคลิกลิงก์ที่เราเพิ่งส่งไปให้คุณทางอีเมล หากคุณไม่ได้รับอีเมล เราจะส่งอีเมลอีกฉบับให้คุณด้วยความยินดี
+                </p>
             </div>
-        </form>
 
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
+            @if (session('status') == 'verification-link-sent')
+                <div class="mt-8 rounded-lg bg-green-50 p-5 text-green-800">
+                    ส่งลิงก์ยืนยันใหม่ไปยังที่อยู่อีเมลที่คุณให้ไว้ระหว่างการลงทะเบียนแล้ว
+                </div>
+            @endif
 
-            <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                {{ __('Log Out') }}
-            </button>
-        </form>
+            <div class="mt-10 space-y-6">
+                <form method="POST" action="{{ route('verification.send') }}">
+                    @csrf
+
+                    <div>
+                        <button type="submit" class="group relative w-full flex justify-center py-4 px-4 border border-transparent text-base font-medium rounded-xl text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-300 shadow-lg hover:shadow-xl">
+                            ส่งอีเมลยืนยันอีกครั้ง
+                        </button>
+                    </div>
+                </form>
+
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+
+                    <button type="submit" class="group relative w-full flex justify-center py-4 px-4 border border-gray-300 text-base font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-300 shadow hover:shadow-lg">
+                        ออกจากระบบ
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 </x-guest-layout>

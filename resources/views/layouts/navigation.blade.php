@@ -1,35 +1,55 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="sticky top-0 z-50 bg-white border-b border-gray-100 shadow">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
-                </div>
+        <div class="flex justify-between items-center h-16"> <!-- items-center เพื่อให้อยู่กลางแนวตั้ง -->
+
+          <!-- Left: Logo + Links -->
+<div class="flex items-center space-x-8">
+  <!-- Logo --> <div class="shrink-0 flex items-center"> <a href="{{ route('dashboard') }}"> <img src="{{ asset('images/โก้.png') }}" alt="Collecta Logo" class="h-16 md:h-21 mx-auto"> </a> </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden sm:flex space-x-8">
                     <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
                         {{ __('หน้าแรก') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('products.create')" :active="request()->routeIs('products.create')">
-                        {{ __('เพิ่มสินค้าใหม่') }}
-                    </x-nav-link>
+
+                    @auth
+                        @if(Auth::user()->isAdmin())
+                            <x-nav-link :href="route('products.create')" :active="request()->routeIs('products.create')">
+                                {{ __('เพิ่มสินค้าใหม่') }}
+                            </x-nav-link>
+                        @else
+                            <x-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.index')">
+                                {{ __('ตะกร้า') }}
+                                @if(session('cart') && count(session('cart')) > 0)
+                                    <span class="ml-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                                        {{ count(session('cart')) }}
+                                    </span>
+                                @endif
+                            </x-nav-link>
+                        @endif
+                    @endauth
+
+                    @guest
+                        <x-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.index')">
+                            {{ __('ตะกร้า') }}
+                            @if(session('cart') && count(session('cart')) > 0)
+                                <span class="ml-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                                    {{ count(session('cart')) }}
+                                </span>
+                            @endif
+                        </x-nav-link>
+                    @endguest
                 </div>
             </div>
 
-            <!-- Right Side (Desktop) -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6 gap-4">
+            <!-- Right Side: Login/Register or User Dropdown -->
+            <div class="hidden sm:flex items-center gap-4">
                 @guest
-                    <a href="{{ route('login') }}" 
-                       class="px-4 py-2 rounded-lg bg-green-600 text-white font-semibold shadow hover:bg-green-700 transition">
+                    <a href="{{ route('login') }}" class="btn-pastel-pink">
                         🔑 เข้าสู่ระบบ
                     </a>
-                    <a href="{{ route('register') }}" 
-                       class="px-4 py-2 rounded-lg bg-white border border-green-600 text-green-700 font-semibold shadow hover:bg-green-50 transition">
+                    <a href="{{ route('register') }}" class="btn-pastel-orange">
                         📝 สมัครสมาชิก
                     </a>
                 @endguest
@@ -51,6 +71,12 @@
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
+
+                            @if(Auth::user()->isAdmin())
+                                <x-dropdown-link :href="route('products.create')">
+                                    {{ __('เพิ่มสินค้าใหม่') }}
+                                </x-dropdown-link>
+                            @endif
 
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -84,20 +110,43 @@
             <x-responsive-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
                 {{ __('หน้าแรก') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('products.create')" :active="request()->routeIs('products.create')">
-                {{ __('เพิ่มสินค้าใหม่') }}
-            </x-responsive-nav-link>
+
+            @auth
+                @if(Auth::user()->isAdmin())
+                    <x-responsive-nav-link :href="route('products.create')" :active="request()->routeIs('products.create')">
+                        {{ __('เพิ่มสินค้าใหม่') }}
+                    </x-responsive-nav-link>
+                @else
+                    <x-responsive-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.index')">
+                        {{ __('ตะกร้า') }}
+                        @if(session('cart') && count(session('cart')) > 0)
+                            <span class="ml-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                                {{ count(session('cart')) }}
+                            </span>
+                        @endif
+                    </x-responsive-nav-link>
+                @endif
+            @endauth
+
+            @guest
+                <x-responsive-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.index')">
+                    {{ __('ตะกร้า') }}
+                    @if(session('cart') && count(session('cart')) > 0)
+                        <span class="ml-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                            {{ count(session('cart')) }}
+                        </span>
+                    @endif
+                </x-responsive-nav-link>
+            @endguest
         </div>
 
         <!-- Right Side Mobile -->
         <div class="pt-4 pb-1 border-t border-gray-200 px-4 flex flex-col gap-2">
             @guest
-                <a href="{{ route('login') }}" 
-                   class="w-full text-center px-4 py-2 rounded-lg bg-green-600 text-white font-semibold shadow hover:bg-green-700 transition">
+                <a href="{{ route('login') }}" class="w-full text-center px-4 py-2 rounded-lg bg-green-600 text-white font-semibold shadow hover:bg-green-700 transition">
                     🔑 เข้าสู่ระบบ
                 </a>
-                <a href="{{ route('register') }}" 
-                   class="w-full text-center px-4 py-2 rounded-lg bg-white border border-green-600 text-green-700 font-semibold shadow hover:bg-green-50 transition">
+                <a href="{{ route('register') }}" class="w-full text-center px-4 py-2 rounded-lg bg-white border border-green-600 text-green-700 font-semibold shadow hover:bg-green-50 transition">
                     📝 สมัครสมาชิก
                 </a>
             @endguest
@@ -109,6 +158,12 @@
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
+
+                @if(Auth::user()->isAdmin())
+                    <x-responsive-nav-link :href="route('products.create')">
+                        {{ __('เพิ่มสินค้าใหม่') }}
+                    </x-responsive-nav-link>
+                @endif
 
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
