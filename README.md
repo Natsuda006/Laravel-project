@@ -1,61 +1,183 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Collecta - ระบบอีคอมเมิร์ซ
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Collecta เป็นระบบอีคอมเมิร์ซที่พัฒนาด้วย Laravel Framework ซึ่งมีฟีเจอร์ครบครันสำหรับการขายสินค้าออนไลน์ ระบบมีทั้งส่วนของผู้ใช้งานทั่วไปและผู้ดูแลระบบ
 
-## About Laravel
+## ฟีเจอร์ของระบบ
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### สำหรับผู้ใช้งานทั่วไป:
+- ดูรายการสินค้าทั้งหมด
+- ดูรายละเอียดสินค้าแต่ละชิ้น
+- เพิ่มสินค้าลงในตะกร้าสินค้า
+- จัดการสินค้าในตะกร้า (เพิ่ม/ลด จำนวน, ลบสินค้า)
+- ดำเนินการสั่งซื้อสินค้า
+- ระบบการลงทะเบียนและเข้าสู่ระบบ
+- จัดการข้อมูลส่วนตัว
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### สำหรับผู้ดูแลระบบ:
+- จัดการสินค้า (เพิ่ม, แก้ไข, ลบ)
+- ดูรายการสินค้าทั้งหมด
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## เทคโนโลยีที่ใช้
 
-## Learning Laravel
+- **Backend**: Laravel 12.x (PHP 8.2+)
+- **Frontend**: Blade Templates, Tailwind CSS, Alpine.js
+- **Database**: MySQL/SQLite
+- **Authentication**: Laravel Breeze
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## โครงสร้างฐานข้อมูล
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### ตาราง Users
+- id (Primary Key)
+- name (ชื่อผู้ใช้)
+- email (อีเมล)
+- password (รหัสผ่าน)
+- role (บทบาท: user/admin)
+- timestamps
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### ตาราง Products
+- id (Primary Key)
+- name (ชื่อสินค้า)
+- description (รายละเอียดสินค้า)
+- price (ราคา)
+- image (ภาพสินค้า)
+- timestamps
 
-## Laravel Sponsors
+## การติดตั้งระบบ
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1. คัดลอกโปรเจกต์:
+   ```bash
+   git clone <repository-url>
+   cd collecta
+   ```
 
-### Premium Partners
+2. ติดตั้ง PHP Dependencies:
+   ```bash
+   composer install
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+3. ติดตั้ง JavaScript Dependencies:
+   ```bash
+   npm install
+   ```
 
-## Contributing
+4. สร้างไฟล์ .env:
+   ```bash
+   cp .env.example .env
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5. สร้าง Application Key:
+   ```bash
+   php artisan key:generate
+   ```
 
-## Code of Conduct
+6. กำหนดค่าฐานข้อมูลในไฟล์ .env:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=collecta_db
+   DB_USERNAME=your_username
+   DB_PASSWORD=your_password
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+7. ทำการ Migrate ฐานข้อมูล:
+   ```bash
+   php artisan migrate
+   ```
 
-## Security Vulnerabilities
+8. สร้างผู้ใช้ Admin (สำหรับทดสอบ):
+   ```bash
+   php artisan db:seed --class=AdminUserSeeder
+   ```
+   ข้อมูลเข้าสู่ระบบของ Admin:
+   - อีเมล: admin@example.com
+   - รหัสผ่าน: password
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+9. สร้าง Assets:
+   ```bash
+   npm run build
+   ```
+
+10. รันเซิร์ฟเวอร์:
+    ```bash
+    php artisan serve
+    ```
+
+## การใช้งานระบบ
+
+### สำหรับผู้ใช้งานทั่วไป:
+1. เปิดเว็บเบราว์เซอร์และไปที่ `http://localhost:8000`
+2. สามารถดูรายการสินค้าได้ทันที
+3. หากต้องการสั่งซื้อสินค้า ต้องลงทะเบียนหรือเข้าสู่ระบบก่อน
+4. เพิ่มสินค้าลงในตะกร้า และดำเนินการสั่งซื้อ
+
+### สำหรับผู้ดูแลระบบ:
+1. เข้าสู่ระบบด้วยข้อมูล Admin:
+   - อีเมล: admin@example.com
+   - รหัสผ่าน: password
+2. ไปที่หน้ารายการสินค้า `http://localhost:8000/products`
+3. คลิกปุ่ม "เพิ่มสินค้าใหม่" เพื่อเพิ่มสินค้า
+4. สามารถแก้ไขหรือลบสินค้าได้จากหน้ารายการสินค้า
+
+## โครงสร้างโปรเจกต์
+
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── Auth/ (ระบบ Authentication)
+│   │   ├── CartController.php (ระบบตะกร้าสินค้า)
+│   │   ├── ProductController.php (ระบบจัดการสินค้า)
+│   │   └── ProfileController.php (ระบบโปรไฟล์)
+│   └── Requests/ (การตรวจสอบข้อมูล)
+├── Models/
+│   ├── Product.php (Model ของสินค้า)
+│   └── User.php (Model ของผู้ใช้)
+├── Providers/
+database/
+├── migrations/ (ไฟล์สร้างฐานข้อมูล)
+└── seeders/ (ข้อมูลตัวอย่าง)
+resources/
+├── views/
+│   ├── auth/ (หน้า Authentication)
+│   ├── cart/ (หน้าตะกร้าสินค้า)
+│   ├── products/ (หน้าสินค้า)
+│   ├── profile/ (หน้าโปรไฟล์)
+│   └── layouts/ (โครงสร้างหน้าเว็บ)
+└── css/
+   └── app.css (สไตล์หลัก)
+routes/
+├── web.php (เส้นทางหลักของเว็บ)
+└── auth.php (เส้นทาง Authentication)
+```
+
+## การพัฒนาต่อยอด
+
+### เพิ่มฟีเจอร์ใหม่:
+1. สร้าง Controller ใหม่ใน `app/Http/Controllers/`
+2. สร้าง Model ใหม่ใน `app/Models/` (ถ้าจำเป็น)
+3. สร้าง Migration ใหม่ใน `database/migrations/` (ถ้าต้องการตารางใหม่)
+4. เพิ่มเส้นทางใน `routes/web.php`
+5. สร้างหน้า View ใหม่ใน `resources/views/`
+
+### ปรับปรุงฟีเจอร์เดิม:
+1. แก้ไข Controller ที่ต้องการใน `app/Http/Controllers/`
+2. แก้ไข View ที่ต้องการใน `resources/views/`
+3. แก้ไข CSS ใน `resources/css/app.css`
+
+## การทดสอบระบบ
+
+รันการทดสอบด้วยคำสั่ง:
+```bash
+php artisan test
+```
+
+## ความช่วยเหลือเพิ่มเติม
+
+หากพบปัญหาในการติดตั้งหรือใช้งานระบบ กรุณาติดต่อทีมพัฒนา หรือตรวจสอบปัญหาที่:
+- [Laravel Documentation](https://laravel.com/docs)
+- [Laravel GitHub Issues](https://github.com/laravel/laravel/issues)
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+โปรเจกต์นี้เป็น Open Source ภายใต้ใบอนุญาต [MIT license](https://opensource.org/licenses/MIT).
