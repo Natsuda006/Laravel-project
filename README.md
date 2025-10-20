@@ -1,6 +1,17 @@
-# Collecta - ระบบอีคอมเมิร์ซ
+<div align="center">
+  <img src="public/images/โก้.png" alt="Collecta Logo" width="200">
 
-Collecta เป็นระบบอีคอมเมิร์ซที่พัฒนาด้วย Laravel Framework ซึ่งมีฟีเจอร์ครบครันสำหรับการขายสินค้าออนไลน์ ระบบมีทั้งส่วนของผู้ใช้งานทั่วไปและผู้ดูแลระบบ
+  # ✨ Collecta - ระบบอีคอมเมิร์ซ
+  
+  [![Laravel](https://img.shields.io/badge/Laravel-v12.x-FF2D20?style=for-the-badge&logo=laravel)](https://laravel.com)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v3.x-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com)
+  [![PHP](https://img.shields.io/badge/PHP-v8.2+-777BB4?style=for-the-badge&logo=php)](https://php.net)
+  [![MySQL](https://img.shields.io/badge/MySQL-v8.0+-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com)
+  
+  <p> Collecta เป็นระบบอีคอมเมิร์ซที่พัฒนาด้วย Laravel Framework ซึ่งมีฟีเจอร์ครบครันสำหรับการขายสินค้าออนไลน์ ระบบมีทั้งส่วนของผู้ใช้งานทั่วไปและผู้ดูแลระบบ</p>
+</div>
+
+
 
 ## ฟีเจอร์ของระบบ
 
